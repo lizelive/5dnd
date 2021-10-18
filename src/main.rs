@@ -203,6 +203,11 @@ enum DamageKind {
     Thunder,
     Force,
     Psychic,
+
+    Radiation,
+    Suffocation,
+    Healing,
+    Curse
 }
 
 struct Token {
@@ -244,6 +249,17 @@ struct World {
     boards: Vec<Board>,
     actions: Vec<Action>,
 }
+
+extern crate serde;
+extern crate schemafy;
+extern crate serde_json;
+
+use serde::{Serialize, Deserialize};
+
+schemafy::schemafy!(
+    "schema.json"
+);
+
 
 fn main() {
     println!("Hello, world!");

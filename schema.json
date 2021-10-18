@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Defs",
+    "description": "Defintions for the game",
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "integer"
+        },
+        "damage": {
+            "$ref": "#/definitions/Damage"
+        }
+    },
+    "definitions": {
+        "Base": {
+            "title": "BaseDef",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "inherit": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "Damage": {
+            "description": "A whole world of hurt",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Damage"
+                }
+            ],
+            "properties": {
+                "max_value": {
+                    "type": "number"
+                },
+                "effect": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
