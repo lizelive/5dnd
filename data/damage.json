@@ -1,0 +1,8 @@
+{
+    "$schema": "../schema.json",
+    "version": 0,
+    "damage": {
+        "name": "healing",
+        
+    }
+}
