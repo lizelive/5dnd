@@ -1,5 +1,4 @@
-use std::{cell::Ref, sync::Arc};
-
+use std::{cell::Ref, collections::HashMap, sync::Arc};
 
 mod expression;
 
@@ -64,7 +63,6 @@ enum Check {
     Spell,
     Const(int),
 }
-
 
 enum Roll {
     Constant(int),
@@ -203,11 +201,35 @@ enum DamageKind {
     Thunder,
     Force,
     Psychic,
-
-    Radiation,
-    Suffocation,
     Healing,
-    Curse
+    Curse,
+}
+
+enum ValueKind {
+    Float,
+    Integer,
+    List,
+    Inventory,
+    Acumulate,
+    Procedual,
+    Event,
+    Program,
+}
+
+type Symbol = std::rc::Rc<str>;
+
+fn math(
+    add: impl IntoIterator<Item = f64>,
+    mul: impl IntoIterator<Item = f64>,
+    pow: impl IntoIterator<Item = f64>,
+    // exp: impl IntoIterator<Item = f64>,
+) -> f64 {
+    f64::powf(add.sum() * mul.product(), pow.product())
+}
+
+struct Thing {
+    /// my stats
+    stats: HashMap<Symbol, f64>,
 }
 
 struct Token {
@@ -250,16 +272,13 @@ struct World {
     actions: Vec<Action>,
 }
 
-extern crate serde;
 extern crate schemafy;
+extern crate serde;
 extern crate serde_json;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-schemafy::schemafy!(
-    "schema.json"
-);
-
+//schemafy::schemafy!("schema.json");
 
 fn main() {
     println!("Hello, world!");
