@@ -1,0 +1,57 @@
+{
+    "health_missing_brain" : {
+        "base": "health_missing_brain",
+        "minus": "health_brain"
+    },
+    "scar_brain": {
+        "inital": 0,
+        "max": {
+            "times": [
+                -0.2,
+                "health_missing_brain"
+            ]
+        },
+        "halflife": {"year": 1}
+    },
+    "health_max_brain": {
+        "base": "base_health_max_brain",
+        "minus": "brain_scar"
+    },
+    "damage_raw_brain" : {
+        "kind": "input",
+        "dtype": "bag_num",
+        "default": 0
+    },
+    "damage_effectiveness_brain": {
+        "dtype": "bag_num",
+        "default": 1
+    },
+    "healing_rate_brain" : {
+        "base": "base_healing_rate",
+        "times": 0.1
+    },
+    "asphyxiation_damage_brain": {
+        "times": [ "base_asphyxiation_damage", 10 ]
+    },
+    "p_health_brain": {
+        "base": "health_brain",
+        "divide": "health_max_brain"
+    },
+    "health_brain": {
+        "inital": "health_max_brain",
+        "add": {
+            "dot": [
+                "damage_raw_brain",
+                "damage_effectiveness_brain"
+            ]
+        },
+        "integrate": {"add" : ["healing_rate_brain", "asphyxiation_damage_brain"] },
+        "clamp": {
+            "range": {
+                "min": 0,
+                "max": "health_max_brain"
+            }
+        }
+    },
+    "consciousness"
+}
